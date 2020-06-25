@@ -105,6 +105,12 @@ public final class DropDown: UIView {
 	public weak var anchorView: AnchorView? {
 		didSet { setNeedsUpdateConstraints() }
 	}
+    
+    public var tableHeaderView: UIView? {
+        didSet {
+            self.tableView.tableHeaderView = tableHeaderView
+        }
+    }
 
 	/**
 	The possible directions where the drop down will be showed.
@@ -1019,7 +1025,7 @@ extension DropDown {
 
 	/// Returns the height needed to display all cells.
 	fileprivate var tableHeight: CGFloat {
-		return tableView.rowHeight * CGFloat(dataSource.count)
+        return tableView.rowHeight * CGFloat(dataSource.count) + (tableView.tableHeaderView?.frame.height ?? 0)
 	}
 
     //MARK: Objective-C methods for converting the Swift type Index
